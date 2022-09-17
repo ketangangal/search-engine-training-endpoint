@@ -1,4 +1,6 @@
 from torch import nn
+from from_root import from_root
+import os
 import torch
 
 # Require final layer to be dynamic 
@@ -6,16 +8,18 @@ import torch
 # While embedding we need liner layers to be 256 as Dimension Reduction.
 
 class NeuralNet(nn.Module):
-  def __init__(self, layers):
+  def __init__(self, labels):
     super().__init__()
-    self.base_model = layers
+    torch.hub.set_dir(os.path.join(from_root(), "model","benchmark"))
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
+    self.base_model = nn.Sequential(*list(model.children())[:-2])
     self.flatten = nn.Flatten()
-    self.linear = nn.Linear(512*7*7,101)
+    self.final = nn.Linear(512*8*8,labels)
 
   def forward(self,x):
     x = self.base_model(x)
     x = self.flatten(x)
-    x = self.linear(x)
+    x = self.final(x)
     return x
 
 

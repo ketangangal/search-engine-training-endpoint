@@ -1,15 +1,8 @@
-# Data Ingestion Steps
-# 1. Get data from s3 bucket as zip and extract to data folder
-# 2. zip folder will be removed after data extraction and data will be removed after training step
-# 3. Think About cost involved for pulling and also think about space required to store training
-# https://{image-database-system}.s3.{ap-south-1}.amazonaws.com/{images}/{label1}/{img-c9e405fb-3020-11ed-9b47-04421a0275c0.jpeg}
-
 import splitfolders
 from tqdm import tqdm
 import shutil
 import boto3
 import os
-
 
 
 class DataIngestion:
@@ -20,7 +13,6 @@ class DataIngestion:
         self.bucket = bucket
         self.client = boto3.client('s3')
 
-    
     def download_dir(self):
         """
         params:
@@ -33,7 +25,7 @@ class DataIngestion:
         keys = []
         dirs = []
         next_token = ''
-        base_kwargs = {'Bucket': self.bucket,'Prefix': self.prefix}  
+        base_kwargs = {'Bucket': self.bucket, 'Prefix': self.prefix}
         while next_token is not None:
             kwargs = base_kwargs.copy()
             if next_token != '':
@@ -50,25 +42,27 @@ class DataIngestion:
             next_token = results.get('NextContinuationToken')
         print("====================== Fetching Data ==============================\n")
 
-        for d in tqdm(dirs, desc = "Creating Directories : "):
+        for d in tqdm(dirs, desc="Creating Directories : "):
             dest_pathname = os.path.join(self.raw, d)
             if not os.path.exists(os.path.dirname(dest_pathname)):
                 os.makedirs(os.path.dirname(dest_pathname))
 
-        for k in tqdm(keys, desc = "Downloading Images : "):
+        for k in tqdm(keys, desc="Downloading Images : "):
             dest_pathname = os.path.join(self.raw, k)
             if not os.path.exists(os.path.dirname(dest_pathname)):
                 os.makedirs(os.path.dirname(dest_pathname))
             self.client.download_file(self.bucket, k, dest_pathname)
-            
+
         print("\n====================== Fetching Completed ==========================")
+
     def split_data(self):
         try:
-            splitfolders.ratio(input=self.raw + "/images/", output=self.split, seed=1337, ratio=(.8, .1, .1), group_prefix=None, move=False)
+            splitfolders.ratio(input=self.raw + "/images/", output=self.split, seed=1337, ratio=(.8, .1, .1),
+                               group_prefix=None, move=False)
             shutil.rmtree(self.raw + "/images/")
         except Exception as e:
             raise e
-        
+
     def run_step(self):
         self.download_dir()
         self.split_data()
