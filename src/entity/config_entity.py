@@ -53,7 +53,7 @@ class ModelConfig:
 
 class TrainerConfig:
     def __init__(self):
-        self.MODEL_STORE_PATH = os.path.join(from_root(), "model", "finetuned", "model")
+        self.MODEL_STORE_PATH = os.path.join(from_root(), "model", "finetuned", "model.pth")
         self.EPOCHS = 2
         self.Evaluation = True
 
@@ -93,6 +93,7 @@ class s3Config:
     def __init__(self):
         self.ACCESS_KEY_ID = ""
         self.SECRET_KEY = ""
+        self.REGION_NAME = "ap-south-1"
         self.BUCKET_NAME = "image-database-system"
         self.KEY = "model"
         self.ZIP_NAME = "artifacts.tar.gz"
@@ -102,3 +103,4 @@ class s3Config:
 
     def get_s3_config(self):
         return self.__dict__
+

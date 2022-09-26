@@ -42,11 +42,11 @@ class DataPreprocessing:
                 valid_data = ImageFolder(root=self.config.TEST_DATA_PATH, transform=TRANSFORM_IMG)
 
                 train_data_loader = DataLoader(train_data, batch_size=self.config.BATCH_SIZE,
-                                               shuffle=True, num_workers=2)
+                                               shuffle=True, num_workers=1)
                 test_data_loader = DataLoader(test_data, batch_size=self.config.BATCH_SIZE,
-                                              shuffle=False, num_workers=2)
+                                              shuffle=False, num_workers=1)
                 valid_data_loader = DataLoader(valid_data, batch_size=self.config.BATCH_SIZE,
-                                               shuffle=False, num_workers=2)
+                                               shuffle=False, num_workers=1)
 
                 result = {
                     "train_data_loader": (train_data_loader, train_data),

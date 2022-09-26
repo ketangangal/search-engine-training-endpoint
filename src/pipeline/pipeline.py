@@ -34,21 +34,20 @@ class Pipeline:
         loaders = dp.run_step()
         return loaders
 
-    def initiate_model_architecture(self):
-        net = NeuralNet()
-        net.to(self.device)
-        return net
+    @staticmethod
+    def initiate_model_architecture():
+        return NeuralNet()
 
-    def initiate_model_training(self, loaders):
-        trainer = Trainer(loaders, device=self.device)
+    def initiate_model_training(self, loaders, net):
+        trainer = Trainer(loaders, self.device, net)
         trainer.train_model()
         trainer.evaluate(validate=True)
         trainer.save_model_in_pth()
 
-    def generate_embeddings(self, loaders):
+    def generate_embeddings(self, loaders, net):
         data = ImageFolder(label_map=loaders["valid_data_loader"][1].class_to_idx)
         dataloader = DataLoader(dataset=data, batch_size=64, shuffle=True)
-        embeds = EmbeddingGenerator(model=NeuralNet(), device=self.device)
+        embeds = EmbeddingGenerator(model=net, device=self.device)
 
         for batch, values in tqdm(enumerate(dataloader)):
             img, target, link = values
@@ -68,10 +67,12 @@ class Pipeline:
     def run_pipeline(self):
         self.initiate_data_ingestion()
         loaders = self.initiate_data_preprocessing()
-        self.initiate_model_training(loaders)
-        self.generate_embeddings(loaders)
+        net = self.initiate_model_architecture()
+        self.initiate_model_training(loaders, net)
+        self.generate_embeddings(loaders, net)
         self.create_annoy()
         self.push_artifacts()
+        return {"Response": "Pipeline Run Complete"}
 
 
 if __name__ == "__main__":

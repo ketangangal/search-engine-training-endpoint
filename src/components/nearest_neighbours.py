@@ -17,8 +17,7 @@ class CustomAnnoy(AnnoyIndex):
         self.label.append(label)
 
     def get_nns_by_vector(
-            self, vector, n: int, search_k: int = ..., include_distances: Literal[False] = ...
-    ) -> list[str]:
+            self, vector, n: int, search_k: int = ..., include_distances: Literal[False] = ...):
         indexes = super().get_nns_by_vector(vector, n, search_k, include_distances)
         labels = [self.label[link] for link in indexes]
         return labels

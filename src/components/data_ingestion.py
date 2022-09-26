@@ -1,15 +1,16 @@
 from src.entity.config_entity import DataIngestionConfig
+from src.utils.storage_handler import S3Connector
 from tqdm import tqdm
 from from_root import from_root
 import splitfolders
-import boto3
 import os
 
 
 class DataIngestion:
     def __init__(self):
         self.config = DataIngestionConfig()
-        self.client = boto3.client('s3')
+        self.connection = S3Connector()
+        self.client = self.connection.client
 
     def download_dir(self):
         """
@@ -69,7 +70,7 @@ class DataIngestion:
                 input=os.path.join(self.config.RAW, self.config.PREFIX),
                 output=self.config.SPLIT,
                 seed=self.config.SEED,
-                ratio=self.config.SPLIT,
+                ratio=self.config.RATIO,
                 group_prefix=None, move=False
             )
         except Exception as e:
@@ -92,4 +93,3 @@ if __name__ == "__main__":
 
     dc = DataIngestion()
     print(dc.run_step())
-

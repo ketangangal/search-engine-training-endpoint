@@ -9,14 +9,14 @@ from tqdm import tqdm
 
 
 class Trainer:
-    def __init__(self, loaders: Dict, device: str):
+    def __init__(self, loaders: Dict, device: str, net):
         self.config = TrainerConfig()
         self.trainLoader = loaders["train_data_loader"][0]
         self.testLoader = loaders["test_data_loader"][0]
         self.validLoader = loaders["valid_data_loader"][0]
         self.device = device
         self.criterion = nn.CrossEntropyLoss()
-        self.model = NeuralNet().to(self.device)
+        self.model = net.to(self.device)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=1e-4)
         self.evaluation = self.config.Evaluation
 
@@ -84,7 +84,7 @@ class Trainer:
 if __name__ == "__main__":
     dp = DataPreprocessing()
     loaders = dp.run_step()
-    trainer = Trainer(loaders, device="cpu")
-    trainer.train_model(2)
+    trainer = Trainer(loaders, "cpu", net=NeuralNet())
+    trainer.train_model()
     trainer.evaluate(validate=True)
     trainer.save_model_in_pth()

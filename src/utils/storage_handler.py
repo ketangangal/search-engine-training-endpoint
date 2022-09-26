@@ -7,11 +7,11 @@ import os
 class S3Connector(object):
     def __init__(self):
         self.config = s3Config()
-        session = Session(
-            aws_access_key_id=self.config.ACCESS_KEY_ID,
-            aws_secret_access_key=self.config.SECRET_KEY
-        )
-        self.s3 = session.resource("s3")
+        self.session = Session(aws_access_key_id=self.config.ACCESS_KEY_ID,
+                               aws_secret_access_key=self.config.SECRET_KEY,
+                               region_name=self.config.REGION_NAME)
+        self.client = self.session.client("s3")
+        self.s3 = self.session.resource("s3")
         self.bucket = self.s3.Bucket(self.config.BUCKET_NAME)
 
     def zip_files(self):
