@@ -38,7 +38,10 @@ jobs:
       - run: npm -v
 
       - name: Install Paperspace Cli
-        run: npm install paperspace-node && export PATH=$PATH:~/location/to/the/npm/binary
+        run: npm install paperspace-node
+
+      - name: Export Path
+        run: export PATH=$PATH:~/location/to/the/npm/binary
 
       - name: Test Paperspace Cli
         run: paperspace
