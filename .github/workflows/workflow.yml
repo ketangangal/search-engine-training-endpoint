@@ -35,12 +35,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - run: npm -v
 
       - name: Install Paperspace Cli
         run: npm install paperspace-node
 
       - name: Export Path
-        run: export PATH=$PATH:~/location/to/the/npm/binary
+        run: echo "~/location/to/the/npm/binary" >> $GITHUB_PATH
 
       - name: Test Paperspace Cli
         run: paperspace
