@@ -37,4 +37,10 @@ jobs:
           node-version: 16
       - run: npm -v
 
+      - name: Install Paperspace Cli
+      - run: npm install paperspace-node
+
+      - name: Test Paperspace Cli
+        run: paperspace -version
+
 
