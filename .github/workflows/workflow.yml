@@ -40,10 +40,7 @@ jobs:
         run: npm -v
 
       - name: Install Paperspace Cli
-        run: npm install paperspace-node
-
-      - name: Export Path
-        run: echo "~/location/to/the/npm/binary" >> $GITHUB_PATH
+        run: npm install -g paperspace-node
 
       - name: Test Paperspace Cli
         run: paperspace
