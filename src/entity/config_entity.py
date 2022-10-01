@@ -1,4 +1,3 @@
-from src.utils.common import get_unique_filename
 from from_root import from_root
 import os
 
@@ -92,8 +91,8 @@ class AnnoyConfig:
 
 class s3Config:
     def __init__(self):
-        self.ACCESS_KEY_ID = os.environ["ACCESS_KEY_ID"],
-        self.SECRET_KEY = os.environ["AWS_SECRET_KEY"],
+        self.ACCESS_KEY_ID = os.environ["ACCESS_KEY_ID"]
+        self.SECRET_KEY = os.environ["AWS_SECRET_KEY"]
         self.REGION_NAME = "ap-south-1"
         self.BUCKET_NAME = "image-database-system"
         self.KEY = "model"
