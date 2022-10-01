@@ -35,7 +35,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm -v
+
+      - name: Check Node Version
+        run: npm -v
 
       - name: Install Paperspace Cli
         run: npm install paperspace-node
