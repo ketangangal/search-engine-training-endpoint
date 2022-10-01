@@ -26,7 +26,7 @@ jobs:
         run: echo "Running unit tests"
 
 
-  Continous-Deployment:
+  Continuous-Deployment:
     name: Continuous Deployment
     needs: integration
     runs-on: ubuntu-latest
@@ -43,6 +43,30 @@ jobs:
         run: npm install -g paperspace-node
 
       - name: Test Paperspace Cli
-        run: paperspace
+        run: paperspace -version
 
+      - name: Start a Gpu Instance
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          MACHINE_ID: ${{ secrets.MACHINE_ID }}
+        run: paperspace machines start --apiKey $API_KEY --machineId $MACHINE_ID
+
+  Continuous-Training:
+    name: Continuous Training
+    needs: Continuous-Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH Connection Pass
+        run: sudo apt-get install sshpass
+
+      - name: Create SSh Connection
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: sshpass -p $SSH_PASSWORD ssh paperspace@64.62.141.2
+
+      - name: Who AM I
+        run: whoami
+
+      - name: ShutDown Remote Machine
+        run: sudo shutdown now
 
