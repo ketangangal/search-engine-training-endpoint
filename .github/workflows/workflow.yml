@@ -38,9 +38,9 @@ jobs:
       - run: npm -v
 
       - name: Install Paperspace Cli
-      - run: npm install paperspace-node
+        run: npm install paperspace-node
 
       - name: Test Paperspace Cli
-      - run: paperspace -version
+        run: paperspace -version
 
 
