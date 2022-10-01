@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import time
 
 
 def set_seed(seed_value: int = 42) -> None:
@@ -9,4 +10,8 @@ def set_seed(seed_value: int = 42) -> None:
     torch.cuda.manual_seed_all(seed_value)
 
 
-set_seed()
+def get_unique_filename(filename, ext):
+    return time.strftime(f"{filename}_%Y_%m_%d_%H_%M.{ext}")
+
+
+print(get_unique_filename("model", "pth"))

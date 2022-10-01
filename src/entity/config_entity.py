@@ -1,11 +1,12 @@
+from src.utils.common import get_unique_filename
 from from_root import from_root
 import os
 
 
 class DatabaseConfig:
     def __init__(self):
-        self.USERNAME: str = ""
-        self.PASSWORD: str = ""
+        self.USERNAME: str = os.environ["DATABASE_USERNAME"]
+        self.PASSWORD: str = os.environ["DATABASE_PASSWORD"]
         self.URL: str = "mongodb+srv://<username>:<password>@projects.ch4mixt.mongodb.net/?retryWrites=true&w=majority"
         self.DBNAME: str = "ReverseImageSearchEngine"
         self.COLLECTION: str = "Embeddings"
@@ -75,7 +76,7 @@ class ImageFolderConfig:
 
 class EmbeddingsConfig:
     def __init__(self):
-        self.MODEL_STORE_PATH = os.path.join(from_root(), "model", "finetuned", "model")
+        self.MODEL_STORE_PATH = os.path.join(from_root(), "model", "finetuned", "model.pth")
 
     def get_embeddings_config(self):
         return self.__dict__
@@ -91,16 +92,15 @@ class AnnoyConfig:
 
 class s3Config:
     def __init__(self):
-        self.ACCESS_KEY_ID = ""
-        self.SECRET_KEY = ""
+        self.ACCESS_KEY_ID = os.environ["ACCESS_KEY_ID"],
+        self.SECRET_KEY = os.environ["AWS_SECRET_KEY"],
         self.REGION_NAME = "ap-south-1"
         self.BUCKET_NAME = "image-database-system"
         self.KEY = "model"
         self.ZIP_NAME = "artifacts.tar.gz"
         self.ZIP_PATHS = [(os.path.join(from_root(), "data", "embeddings", "embeddings.json"), "embeddings.json"),
                           (os.path.join(from_root(), "data", "embeddings", "embeddings.ann"), "embeddings.ann"),
-                          (os.path.join(from_root(), "model", "finetuned", "model"), "model")]
+                          (os.path.join(from_root(), "model", "finetuned", "model.pth"), "model.pth")]
 
     def get_s3_config(self):
         return self.__dict__
-

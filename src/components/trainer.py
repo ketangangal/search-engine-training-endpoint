@@ -43,8 +43,8 @@ class Trainer:
 
             val_loss, val_accuracy = self.evaluate()
 
-            print(f"Train Loss : {loss:.4f}, Train Acc : {accuracy:.2f}, "
-                  f"Validate Loss : {val_loss:.4f}, Train Acc : {val_accuracy:.2f}")
+            print(f"Train Acc : {accuracy:.2f}, Train Loss : {loss:.4f}, "
+                  f"Validation Acc : {val_accuracy:.2f}, Validation Loss : {val_loss:.4f}")
 
         print("Training complete!...\n")
 
@@ -78,7 +78,7 @@ class Trainer:
     def save_model_in_pth(self):
         model_store_path = self.config.MODEL_STORE_PATH
         print(f"Saving Model at {model_store_path}")
-        torch.save(self.model, model_store_path)
+        torch.save(self.model.state_dict(), model_store_path)
 
 
 if __name__ == "__main__":
