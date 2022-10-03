@@ -53,15 +53,12 @@ jobs:
     needs: Continuous-Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Install SSH Connection Pass
-        run: sudo apt-get install sshpass
-
       - name: Create SSh Connection
-        run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh paperspace@64.62.141.2
-
-      - name: Who AM I
-        run: whoami
-
-      - name: ShutDown Remote Machine
-        run: sudo shutdown now
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: whoami
 
