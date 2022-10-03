@@ -60,5 +60,5 @@ jobs:
           username: ${{ secrets.PAPERSPACE_USERNAME }}
           password: ${{ secrets.PAPERSPACE_PASSWORD }}
           port: ${{ secrets.PAPERSPACE_PORT }}
-          script: ls
+          script: cd connections && python3 app.py
 
