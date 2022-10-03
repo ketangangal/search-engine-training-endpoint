@@ -56,8 +56,9 @@ jobs:
       - name: Create SSh Connection
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          host: ${{ secrets.PAPERSPACE_HOST }}
+          username: ${{ secrets.PAPERSPACE_USERNAME }}
+          password: ${{ secrets.PAPERSPACE_PASSWORD }}
+          port: ${{ secrets.PAPERSPACE_PORT }}
           script: whoami
 
