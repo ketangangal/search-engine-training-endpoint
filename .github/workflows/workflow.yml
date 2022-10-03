@@ -63,11 +63,12 @@ jobs:
           username: ${{ secrets.PAPERSPACE_USERNAME }}
           password: ${{ secrets.PAPERSPACE_PASSWORD }}
           port: ${{ secrets.PAPERSPACE_PORT }}
-          script: |
-          mkdir model_training && cd model_training
-          git clone https://github.com/ketangangal/SearchEngine-ModelTrainingEndpoint.git
-          cd SearchEngine-ModelTrainingEndpoint
-          python src/pipeline/pipeline.py
+          script: | 
+            mkdir model_training 
+            cd model_training
+            git clone https://github.com/ketangangal/SearchEngine-ModelTrainingEndpoint.git
+            cd SearchEngine-ModelTrainingEndpoint
+            python src/pipeline/pipeline.py
 
       - name: Setup Node
         uses: actions/setup-node@v3
