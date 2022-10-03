@@ -56,6 +56,20 @@ jobs:
     needs: Continuous-Deployment
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Check Node Version
+        run: npm -v
+
+      - name: Install Paperspace Cli
+        run: npm install -g paperspace-node
+
+      - name: Test Paperspace Cli
+        run: paperspace -version
+
       - name: Create SSh Connection
         uses: appleboy/ssh-action@master
         with:
@@ -73,5 +87,3 @@ jobs:
 
       - name: Job Completed
         run: echo "Completed Training Stage"
-
-
