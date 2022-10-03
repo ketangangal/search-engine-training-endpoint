@@ -48,6 +48,9 @@ jobs:
       - name: Start a Gpu Instance
         run: paperspace machines start --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }}
 
+      - name: Wait For Instance state to be ready
+        run: paperspace machines waitfor --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }} --state "ready"
+
   Continuous-Training:
     name: Continuous Training
     needs: Continuous-Deployment
@@ -61,4 +64,7 @@ jobs:
           password: ${{ secrets.PAPERSPACE_PASSWORD }}
           port: ${{ secrets.PAPERSPACE_PORT }}
           script: cd connections && python3 app.py
+
+      - name: Wait For Instance state to be ready
+        run: paperspace machines stop --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }}
 
