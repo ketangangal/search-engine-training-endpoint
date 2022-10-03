@@ -63,8 +63,15 @@ jobs:
           username: ${{ secrets.PAPERSPACE_USERNAME }}
           password: ${{ secrets.PAPERSPACE_PASSWORD }}
           port: ${{ secrets.PAPERSPACE_PORT }}
-          script: cd connections && python3 app.py
+          script: cd connection && python3 app.py
 
-      - name: Wait For Instance state to be ready
+      - name: Stop Running Instance
         run: paperspace machines stop --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }}
+
+      - name: Wait For Instance state to be Stopped
+        run: paperspace machines waitfor --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }} --state "off"
+
+      - name: Job Completed
+        run: echo "Completed Training Stage"
+
 
