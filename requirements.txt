@@ -11,4 +11,4 @@ dnspython
 torch
 torchvision
 pillow
--e .s
+-e .

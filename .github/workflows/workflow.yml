@@ -51,11 +51,6 @@ jobs:
       - name: Wait For Instance state to be ready
         run: paperspace machines waitfor --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }} --state "ready"
 
-  Continuous-Training:
-    name: Continuous Training
-    needs: Continuous-Deployment
-    runs-on: ubuntu-latest
-    steps:
       - name: Create SSh Connection
         uses: appleboy/ssh-action@master
         with:
@@ -63,26 +58,32 @@ jobs:
           username: ${{ secrets.PAPERSPACE_USERNAME }}
           password: ${{ secrets.PAPERSPACE_PASSWORD }}
           port: ${{ secrets.PAPERSPACE_PORT }}
-          script: | 
-            mkdir model_training 
-            cd model_training
-            git clone https://github.com/ketangangal/SearchEngine-ModelTrainingEndpoint.git
-            cd SearchEngine-ModelTrainingEndpoint
-            python src/pipeline/pipeline.py
+          script: cd actions-runner && ./run.sh
 
+
+  Continuous-Training:
+    name: Continuous Training
+    needs: Continuous-Deployment
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: list root
+        run: ls -a
+
+  Clean-Workbench:
+    name: Clean Workbench
+    needs: Continuous-Training
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: Check Node Version
-        run: npm -v
-
       - name: Install Paperspace Cli
         run: npm install -g paperspace-node
-
-      - name: Test Paperspace Cli
-        run: paperspace -version
 
       - name: Stop Running Instance
         run: paperspace machines stop --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }}
