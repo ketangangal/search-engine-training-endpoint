@@ -51,16 +51,6 @@ jobs:
       - name: Wait For Instance state to be ready
         run: paperspace machines waitfor --apiKey ${{ secrets.API_KEY }} --machineId ${{ secrets.MACHINE_ID }} --state "ready"
 
-      - name: Create SSh Connection
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PAPERSPACE_HOST }}
-          username: ${{ secrets.PAPERSPACE_USERNAME }}
-          password: ${{ secrets.PAPERSPACE_PASSWORD }}
-          port: ${{ secrets.PAPERSPACE_PORT }}
-          script: cd actions-runner && ./run.sh
-
-
   Continuous-Training:
     name: Continuous Training
     needs: Continuous-Deployment
