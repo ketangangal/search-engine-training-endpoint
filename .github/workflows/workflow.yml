@@ -60,7 +60,7 @@ jobs:
 
       - name: Run Training Pipeline
         run: |
-          cd ~/actions-runner/_work/SearchEngine-ModelTrainingEndpoint/SearchEngine-ModelTrainingEndpoint
+          cd "~/actions-runner/_work/SearchEngine-ModelTrainingEndpoint/SearchEngine-ModelTrainingEndpoint"
           source create -p ./env python=3.9 -y
           source activate ./env
           pip3 install -r requirements.txt
