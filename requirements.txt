@@ -5,9 +5,9 @@ boto3==1.24.73
 pandas
 scikit-learn
 pymongo==4.2.0
-annoy==1.17.1
+#annoy==1.17.1
 dnspython
---extra-index-url https://download.pytorch.org/whl/cu113
+#--extra-index-url https://download.pytorch.org/whl/cu113
 torch
 torchvision
 pillow
