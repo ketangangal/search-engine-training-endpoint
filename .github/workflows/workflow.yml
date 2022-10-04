@@ -60,15 +60,15 @@ jobs:
 
       - name: Run Training Pipeline
         run: |
-        cd actions-runner && cd _work
-        cd SearchEngine-ModelTrainingEndpoint
-        cd SearchEngine-ModelTrainingEndpoint
-        conda create -p ./env python=3.9 -y
-        conda activate ./env
-        pip3 install -r requirements.txt
-        python src/pipeline/pipeline.py 
-        conda deactivate ./env 
-        rm -rf env
+          cd actions-runner && cd _work
+          cd SearchEngine-ModelTrainingEndpoint
+          cd SearchEngine-ModelTrainingEndpoint
+          conda create -p ./env python=3.9 -y
+          conda activate ./env
+          pip3 install -r requirements.txt
+          python src/pipeline/pipeline.py 
+          conda deactivate ./env 
+          rm -rf env
 
       - name: Training Completed
         run: echo "Training Completed"
