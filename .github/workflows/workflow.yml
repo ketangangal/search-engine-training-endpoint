@@ -58,15 +58,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: env
-
       - name: Run Training Pipeline
         shell: bash -l {0}
         run: |
-          conda create -p ./env python=3.9
-          conda activate ./env 
           pip3 install -r requirements.txt
           python3 src/pipeline/pipeline.py 
           conda deactivate ./env 
