@@ -63,7 +63,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ap-south-1
+          aws-region: ap-east-1
 
       - name: Sync Local Data folder with bucket
         run: aws s3 sync s3://image-database-system/images/ data/raw/images

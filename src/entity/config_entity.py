@@ -19,7 +19,7 @@ class DataIngestionConfig:
         self.PREFIX: str = "images/"
         self.RAW: str = "data/raw"
         self.SPLIT: str = "data/splitted"
-        self.BUCKET: str = "image-database-system"
+        self.BUCKET: str = "image-database-system-01"
         self.SEED: int = 1337
         self.RATIO: tuple = (0.8, 0.1, 0.1)
 
@@ -66,7 +66,7 @@ class ImageFolderConfig:
         self.ROOT_DIR = os.path.join(from_root(), "data", "raw", "images")
         self.IMAGE_SIZE = 256
         self.LABEL_MAP = {}
-        self.BUCKET: str = "image-database-system"
+        self.BUCKET: str = "image-database-system-01"
         self.S3_LINK = "https://{0}.s3.ap-south-1.amazonaws.com/images/{1}/{2}"
 
     def get_image_folder_config(self):
