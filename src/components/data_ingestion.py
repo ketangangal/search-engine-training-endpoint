@@ -43,6 +43,7 @@ class DataIngestion:
             print("\n====================== Fetching Data ==============================\n")
 
             data_path = os.path.join(from_root(), self.config.RAW, self.config.PREFIX)
+            print(f"aws s3 sync s3://image-database-system/images/ {data_path}")
             os.system(f"aws s3 sync s3://image-database-system/images/ {data_path}")
 
             # for d in tqdm(dirs, desc="Creating Directories : "):
