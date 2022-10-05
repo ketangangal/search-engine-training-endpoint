@@ -58,12 +58,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Run Training Pipeline
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-1
+          aws-region: ap-south-1
+
+      - name: Sync Local Data folder with bucket
+        run: aws s3 sync s3://image-database-system/images/ data/raw/images
+
+      - name: Run Training Pipeline
         env:
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
