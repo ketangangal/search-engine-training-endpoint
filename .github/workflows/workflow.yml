@@ -66,9 +66,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Sync Local Data folder with bucket
-        run: aws s3 sync s3://image-database-system/images/ data/raw/images
-
       - name: Run Training Pipeline
         env:
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
