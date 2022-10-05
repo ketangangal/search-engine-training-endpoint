@@ -94,7 +94,7 @@ class s3Config:
         self.ACCESS_KEY_ID = os.environ["ACCESS_KEY_ID"]
         self.SECRET_KEY = os.environ["AWS_SECRET_KEY"]
         self.REGION_NAME = "ap-south-1"
-        self.BUCKET_NAME = "image-database-system"
+        self.BUCKET_NAME = "image-database-system-01"
         self.KEY = "model"
         self.ZIP_NAME = "artifacts.tar.gz"
         self.ZIP_PATHS = [(os.path.join(from_root(), "data", "embeddings", "embeddings.json"), "embeddings.json"),
