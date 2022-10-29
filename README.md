@@ -31,6 +31,9 @@ unzip awscliv2.zip
 ```bash
 sudo ./aws/install
 ```
+### Step 2.5 
+ Note: **Deactivate base env**
+
 ### Step 3
 1. Install Github runner and Configure runner.
 2. Run github runner as a ubuntu service sudo `./svc.sh install`
