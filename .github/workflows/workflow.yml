@@ -53,7 +53,7 @@ jobs:
 
   Continuous-Training:
     name: Continuous Training
-#    needs: Continuous-Deployment
+    needs: Continuous-Deployment
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -72,7 +72,7 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        shell: bash -l {0}
+        shell: bash
         run: |
           pip3 install -r requirements.txt
           python3 src/pipeline/pipeline.py 
