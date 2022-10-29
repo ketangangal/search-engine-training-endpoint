@@ -72,7 +72,7 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        shell: bash
+        shell: bash -l {0}
         run: |
           pip3 install -r requirements.txt
           python3 src/pipeline/pipeline.py 
