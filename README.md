@@ -11,30 +11,27 @@ We have to manually trigger workflow to start the training.
 
 # Project Setup
 ### Runner Setup
-### Setup 1
+1. Update and upgrade the machine 
+2. Install the paperspace cli
+3. Register Gpu as a runner
+4. Add secrets
+5. Done 
+
+### Env Variables
 ```bash
-sudo apt-get update
+
+export ACCESS_KEY_ID=<access-key>
+export AWS_SECRET_KEY=<secret-key>
+export AWS_REGION=<aws-region>
+
+export DATABASE_USERNAME=<username>
+export DATABASE_PASSWORD=<password>
+
+export API_KEY=<api-key>
+export MACHINE_ID=<machine-id>
+
 ```
-```bash
-sudo apt-get upgrade
-```
-### Setup 2
-```bash
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-```
-```bash
-sudo apt install unzip
-```
-```bash
-unzip awscliv2.zip
-```
-```bash
-sudo ./aws/install
-```
-### Step 3
-1. Install Github runner and Configure runner.
-2. Run github runner as a ubuntu service sudo `./svc.sh install`
-3. Start the service sudo `./svc.sh start`
+
 
 # Cost Involved
 ```Text
