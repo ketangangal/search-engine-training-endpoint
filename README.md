@@ -31,8 +31,6 @@ export API_KEY=<api-key>
 export MACHINE_ID=<machine-id>
 
 ```
-
-
 # Cost Involved
 ```Text
 # Aws S3
