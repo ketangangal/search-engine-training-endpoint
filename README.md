@@ -31,6 +31,14 @@ export API_KEY=<api-key>
 export MACHINE_ID=<machine-id>
 
 ```
+### Errors
+
+fatal error: Python.h: No such file or directory
+```bash
+sudo apt install libpython3.8-dev
+```
+
+
 # Cost Involved
 ```Text
 # Aws S3
